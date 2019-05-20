@@ -79,81 +79,81 @@ jobs:
       - run:
         name: dependent_pre
         command: |
-          - sudo apt-get update
-          - sudo apt-get install clang
-          - sudo apt-get install build-essential libtool autotools-dev automake checkinstall check yasm
-          - sudo apt-get install pkg-config
-          - sudo apt-get install astyle ; exit 0
+           sudo apt-get update
+           sudo apt-get install clang
+           sudo apt-get install build-essential libtool autotools-dev automake checkinstall check yasm
+           sudo apt-get install pkg-config
+           sudo apt-get install astyle ; exit 0
 
         # ------------ network_test requires that "localhost" resolves to ::1 ------------
-          - sudo bash -c "echo '::1             localhost ipv6-localhost ipv6-loopback' >> /etc/hosts" # ipv6 localhost entry
+           sudo bash -c "echo '::1             localhost ipv6-localhost ipv6-loopback' >> /etc/hosts" # ipv6 localhost entry
         # ------------ network_test requires that "localhost" resolves to ::1 ------------
 
-          - java -version ; exit 0
-          - gcc --version ; exit 0
-          - clang --version ; exit 0
-          - astyle --version ; exit 0
+           java -version ; exit 0
+           gcc --version ; exit 0
+           clang --version ; exit 0
+           astyle --version ; exit 0
 
           ### ----- check code style ------
-          - cd .. ; cp -av ToxAndroidRefImpl ./astyle_check/
-          - cd ../astyle_check/ ; ls -al ./astyle/astylerc
-          - cd ../astyle_check/ ;
+           cd .. ; cp -av ToxAndroidRefImpl ./astyle_check/
+           cd ../astyle_check/ ; ls -al ./astyle/astylerc
+           cd ../astyle_check/ ;
             SOURCES=`find android-refimpl-app/app/src/main/java/com/zoffcc/applications/trifa -name '*.java'|sort`;
             astyle -n --options=./astyle/astylerc jni-c-toxcore/jni-c-toxcore.c $SOURCES ; exit 0
-          - cd ../astyle_check/ ; git --no-pager diff
-          - cd ../astyle_check/ ; git diff | cat > $CIRCLE_ARTIFACTS/astyle_check.patch 2>&1
+           cd ../astyle_check/ ; git --no-pager diff
+           cd ../astyle_check/ ; git diff | cat > $CIRCLE_ARTIFACTS/astyle_check.patch 2>&1
           ### ----- check code style ------
 
-          - mkdir -p /home/ubuntu/c-toxcore # workaround :-)
+           mkdir -p /home/ubuntu/c-toxcore # workaround :-)
 
           #- find / -name sdkmanager
 
-          - sudo apt-get install xdotool > /dev/null 2> /dev/null
-          - sudo apt-get install telnet > /dev/null 2> /dev/null
-          - sudo apt-get install x11-utils > /dev/null 2> /dev/null
-          - sudo apt-get install xvkbd > /dev/null 2> /dev/null
-          - sudo apt-get install qrencode > /dev/null 2> /dev/null
-          - sudo apt-get install p7zip-full
+           sudo apt-get install xdotool > /dev/null 2> /dev/null
+           sudo apt-get install telnet > /dev/null 2> /dev/null
+           sudo apt-get install x11-utils > /dev/null 2> /dev/null
+           sudo apt-get install xvkbd > /dev/null 2> /dev/null
+           sudo apt-get install qrencode > /dev/null 2> /dev/null
+           sudo apt-get install p7zip-full
 
-          - echo y | android update sdk --no-ui --all --filter "tools"
-          - android list sdk --all | grep -i tools
-          - android list sdk --all --extended
-          - echo y | android update sdk --no-ui --all --filter "tools"
-          - echo y | android update sdk --no-ui --all --filter "tools"
+           echo y | android update sdk --no-ui --all --filter "tools"
+           android list sdk --all | grep -i tools
+           android list sdk --all --extended
+           echo y | android update sdk --no-ui --all --filter "tools"
+           echo y | android update sdk --no-ui --all --filter "tools"
 
-          - echo y | android update sdk --no-ui --all --filter build-tools-23.0.3
-          - echo y | android update sdk --no-ui --all --filter build-tools-24.0.2
-          - echo y | android update sdk --no-ui --all --filter build-tools-24.0.3
-          - echo y | android update sdk --no-ui --all --filter build-tools-25.0.0
-          - echo y | android update sdk --no-ui --all --filter build-tools-25.0.2
-          - echo y | android update sdk --no-ui --all --filter build-tools-25.0.3
-          - echo y | android update sdk --no-ui --all --filter android-16 ; exit 0
-          - echo y | android update sdk --no-ui --all --filter android-21
-          - echo y | android update sdk --no-ui --all --filter android-23
-          - echo y | android update sdk --no-ui --all --filter android-24
-          - echo y | android update sdk --no-ui --all --filter android-25
-          - echo y | android update sdk --no-ui --all --filter platform-tools
+           echo y | android update sdk --no-ui --all --filter build-tools-23.0.3
+           echo y | android update sdk --no-ui --all --filter build-tools-24.0.2
+           echo y | android update sdk --no-ui --all --filter build-tools-24.0.3
+           echo y | android update sdk --no-ui --all --filter build-tools-25.0.0
+           echo y | android update sdk --no-ui --all --filter build-tools-25.0.2
+           echo y | android update sdk --no-ui --all --filter build-tools-25.0.3
+           echo y | android update sdk --no-ui --all --filter android-16 ; exit 0
+           echo y | android update sdk --no-ui --all --filter android-21
+           echo y | android update sdk --no-ui --all --filter android-23
+           echo y | android update sdk --no-ui --all --filter android-24
+           echo y | android update sdk --no-ui --all --filter android-25
+           echo y | android update sdk --no-ui --all --filter platform-tools
 
-          - echo y | android update sdk --no-ui --all --filter extra-android-m2repository > /dev/null 2> /dev/null
-          - echo y | android update sdk --no-ui --all --filter extra-google-m2repository > /dev/null 2> /dev/null
-          - echo y | android update sdk --no-ui --all --filter extra-android-support > /dev/null 2> /dev/null
-          - echo y | android update sdk --no-ui --all --filter "tools"
-          - echo y | android update sdk --no-ui --all --filter extra-android-support > /dev/null 2> /dev/null
+           echo y | android update sdk --no-ui --all --filter extra-android-m2repository > /dev/null 2> /dev/null
+           echo y | android update sdk --no-ui --all --filter extra-google-m2repository > /dev/null 2> /dev/null
+           echo y | android update sdk --no-ui --all --filter extra-android-support > /dev/null 2> /dev/null
+           echo y | android update sdk --no-ui --all --filter "tools"
+           echo y | android update sdk --no-ui --all --filter extra-android-support > /dev/null 2> /dev/null
 
-          - echo y | android update sdk --no-ui --all --filter sys-img-armeabi-v7a-android-21
-          - echo y | android update sdk --no-ui --all --filter sys-img-armeabi-v7a-android-23 > /dev/null 2> /dev/null
-          - echo y | android update sdk --no-ui --all --filter sys-img-armeabi-v7a-addon-google_apis-google-23 > /dev/null 2> /dev/null
-          - echo y | android update sdk --no-ui --all --filter addon-google_apis-google-23 > /dev/null 2> /dev/null
+           echo y | android update sdk --no-ui --all --filter sys-img-armeabi-v7a-android-21
+           echo y | android update sdk --no-ui --all --filter sys-img-armeabi-v7a-android-23 > /dev/null 2> /dev/null
+           echo y | android update sdk --no-ui --all --filter sys-img-armeabi-v7a-addon-google_apis-google-23 > /dev/null 2> /dev/null
+           echo y | android update sdk --no-ui --all --filter addon-google_apis-google-23 > /dev/null 2> /dev/null
 
-          - echo y | android update sdk --no-ui --all --filter "tools"
+           echo y | android update sdk --no-ui --all --filter "tools"
           # - echo y | android update sdk --no-ui
-          - $ANDROID_HOME/tools/bin/sdkmanager --list --verbose
-          - echo y | $ANDROID_HOME/tools/bin/sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.2"
-          - echo y | $ANDROID_HOME/tools/bin/sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.2"
-          - echo y | $ANDROID_HOME/tools/bin/sdkmanager "build-tools;27.0.3"
-          - echo y | $ANDROID_HOME/tools/bin/sdkmanager "platforms;android-27"
+           $ANDROID_HOME/tools/bin/sdkmanager --list --verbose
+           echo y | $ANDROID_HOME/tools/bin/sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.2"
+           echo y | $ANDROID_HOME/tools/bin/sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.2"
+           echo y | $ANDROID_HOME/tools/bin/sdkmanager "build-tools;27.0.3"
+           echo y | $ANDROID_HOME/tools/bin/sdkmanager "platforms;android-27"
           # -- why is this not just called "cmake" ? --
-          - cmake_pkg_name=$($ANDROID_HOME/tools/bin/sdkmanager --list --verbose|grep -i cmake| tail -n 1 | cut -d \| -f 1 |tr -d " ");
+           cmake_pkg_name=$($ANDROID_HOME/tools/bin/sdkmanager --list --verbose|grep -i cmake| tail -n 1 | cut -d \| -f 1 |tr -d " ");
             echo y | $ANDROID_HOME/tools/bin/sdkmanager "$cmake_pkg_name"
           # -- why is this not just called "cmake" ? --
         #- echo y | $ANDROID_HOME/tools/bin/sdkmanager --update
@@ -161,85 +161,85 @@ jobs:
         #    echo y | android update sdk --no-ui --all --filter "tool,extra-android-m2repository,extra-android-support,extra-google-google_play_services,extra-google-m2repository"
         #    echo y | $ANDROID_HOME/tools/bin/sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.2"
 
-          - echo ${ANDROID_HOME} ; exit 0
-          - ls -al "${ANDROID_HOME}/licenses" ; exit 0
+           echo ${ANDROID_HOME} ; exit 0
+           ls -al "${ANDROID_HOME}/licenses" ; exit 0
 
-          - mkdir -p "${ANDROID_HOME}/licenses" ;
+           mkdir -p "${ANDROID_HOME}/licenses" ;
             echo -e "\n8933bad161af4178b1185d1a37fbf41ea5269c55" > "${ANDROID_HOME}/licenses/android-sdk-license" ;
             echo -e "\n84831b9409646a918e30573bab4c9c91346d8abd" > "${ANDROID_HOME}/licenses/android-sdk-preview-license" ;
             echo -e "\nd975f751698a77b662f1254ddbeed3901e976f5a" > "${ANDROID_HOME}/licenses/intel-android-extra-license"
 
-          - gradle -v # display gradle version
-          - if [ "$GRADLE_CUSTOM_VERSION""x" == "1x" ]; then cd ~ ; wget 'https://services.gradle.org/distributions/gradle-'"$GRADLE_CUSTOM_VNUM"'-bin.zip' ; fi
-          - if [ "$GRADLE_CUSTOM_VERSION""x" == "1x" ]; then mkdir ~/g ; cd ~/g ; unzip ~/gradle-"$GRADLE_CUSTOM_VNUM"-bin.zip ; fi
-          - if [ "$GRADLE_CUSTOM_VERSION""x" == "1x" ]; then cd ~/g ; mv -v ./gradle-"$GRADLE_CUSTOM_VNUM" ./gradle-custom ; fi
-          - gradle -v # display gradle version
+           gradle -v # display gradle version
+           if [ "$GRADLE_CUSTOM_VERSION""x" == "1x" ]; then cd ~ ; wget 'https://services.gradle.org/distributions/gradle-'"$GRADLE_CUSTOM_VNUM"'-bin.zip' ; fi
+           if [ "$GRADLE_CUSTOM_VERSION""x" == "1x" ]; then mkdir ~/g ; cd ~/g ; unzip ~/gradle-"$GRADLE_CUSTOM_VNUM"-bin.zip ; fi
+           if [ "$GRADLE_CUSTOM_VERSION""x" == "1x" ]; then cd ~/g ; mv -v ./gradle-"$GRADLE_CUSTOM_VNUM" ./gradle-custom ; fi
+           gradle -v # display gradle version
       - run:
         name: compile_pre
         command: |
-          - mksdcard -l e 180M sdcard.img
-          - echo 'mtools_skip_check=1' > ~/.mtoolsrc
-          - android list targets
+           mksdcard -l e 180M sdcard.img
+           echo 'mtools_skip_check=1' > ~/.mtoolsrc
+           android list targets
       #
-          - if [ "$EMU_" == "appemu23" ]; then echo "no" | android create avd -n appemu23 -f -t android-23 --abi armeabi-v7a --skin "WXGA720" ; fi
-          - if [ "$EMU_" == "appemu23" ]; then cat ~/.android/avd/appemu23.avd/config.ini ; fi
+           if [ "$EMU_" == "appemu23" ]; then echo "no" | android create avd -n appemu23 -f -t android-23 --abi armeabi-v7a --skin "WXGA720" ; fi
+           if [ "$EMU_" == "appemu23" ]; then cat ~/.android/avd/appemu23.avd/config.ini ; fi
       #
-          - if [ "$EMU_" == "appemu21" ]; then echo "no" | android create avd -n appemu21 -f -t android-21 --abi armeabi-v7a --skin "WXGA720" ; fi
-          - if [ "$EMU_" == "appemu21" ]; then cat ~/.android/avd/appemu21.avd/config.ini ; fi
+           if [ "$EMU_" == "appemu21" ]; then echo "no" | android create avd -n appemu21 -f -t android-21 --abi armeabi-v7a --skin "WXGA720" ; fi
+           if [ "$EMU_" == "appemu21" ]; then cat ~/.android/avd/appemu21.avd/config.ini ; fi
       #
-          - if [ "$EMU_" == "appemu10" ]; then echo "no" | android create avd -n appemu10 -f -t android-10 --abi armeabi --skin "WQVGA432" ; fi
-          - if [ "$EMU_" == "appemu10" ]; then cat ~/.android/avd/appemu10.avd/config.ini ; fi
+           if [ "$EMU_" == "appemu10" ]; then echo "no" | android create avd -n appemu10 -f -t android-10 --abi armeabi --skin "WQVGA432" ; fi
+           if [ "$EMU_" == "appemu10" ]; then cat ~/.android/avd/appemu10.avd/config.ini ; fi
       #
-          - echo "$EMU_"
-          - echo "$sdpath"
+           echo "$EMU_"
+           echo "$sdpath"
       - run:
         name: compile
         command: |
         # --- generic build ---
-          - curl -s http://dl.google.com/android/repository/android-ndk-r13b-linux-x86_64.zip -o android-ndk-r13b-linux-x86_64.zip
+           curl -s http://dl.google.com/android/repository/android-ndk-r13b-linux-x86_64.zip -o android-ndk-r13b-linux-x86_64.zip
         # --- verfiy NDK package ---
-          - echo '3524d7f8fca6dc0d8e7073a7ab7f76888780a22841a6641927123146c3ffd29c  android-ndk-r13b-linux-x86_64.zip' > android-ndk-r13b-linux-x86_64.zip.sha256
-          - sha256sum -c android-ndk-r13b-linux-x86_64.zip.sha256
+           echo '3524d7f8fca6dc0d8e7073a7ab7f76888780a22841a6641927123146c3ffd29c  android-ndk-r13b-linux-x86_64.zip' > android-ndk-r13b-linux-x86_64.zip.sha256
+           sha256sum -c android-ndk-r13b-linux-x86_64.zip.sha256
         # --- verfiy NDK package ---
-          - unzip android-ndk-r13b-linux-x86_64.zip
-          - mv -v /home/ubuntu/ToxAndroidRefImpl/android-ndk-r13b /home/ubuntu/android-ndk
+           unzip android-ndk-r13b-linux-x86_64.zip
+           mv -v /home/ubuntu/ToxAndroidRefImpl/android-ndk-r13b /home/ubuntu/android-ndk
 
-          - mkdir -p $CIRCLE_ARTIFACTS/android/libs/armeabi/
-          - mkdir -p $CIRCLE_ARTIFACTS/android/libs/x86/
+           mkdir -p $CIRCLE_ARTIFACTS/android/libs/armeabi/
+           mkdir -p $CIRCLE_ARTIFACTS/android/libs/x86/
         # --- generic build ---
 
 
-          - echo 'if [ "$CIRCLE_BRANCH""x" == "zoff99/maven_artefactx" ]; then exit 0 ; else echo "full build" ; fi' > ~/_fullb1 ; chmod a+rx ~/_fullb1
+           echo 'if [ "$CIRCLE_BRANCH""x" == "zoff99/maven_artefactx" ]; then exit 0 ; else echo "full build" ; fi' > ~/_fullb1 ; chmod a+rx ~/_fullb1
 
 
         # --- Android build ---
-          - echo 'export ARTEFACT_DIR="$AND_ARTEFACT_DIR";export PATH="$AND_PATH";export PKG_CONFIG_PATH="$AND_PKG_CONFIG_PATH";export READELF="$AND_READELF";export GCC="$AND_GCC";export CC="$AND_CC";export CXX="$AND_CXX";export CPPFLAGS="";export LDFLAGS="";export TOOLCHAIN_ARCH="$AND_TOOLCHAIN_ARCH";export TOOLCHAIN_ARCH2="$AND_TOOLCHAIN_ARCH2"' > ~/pp
-          - chmod u+x ~/pp
-          - rm -Rf "$_s_"
-          - mkdir -p "$_s_"
+           echo 'export ARTEFACT_DIR="$AND_ARTEFACT_DIR";export PATH="$AND_PATH";export PKG_CONFIG_PATH="$AND_PKG_CONFIG_PATH";export READELF="$AND_READELF";export GCC="$AND_GCC";export CC="$AND_CC";export CXX="$AND_CXX";export CPPFLAGS="";export LDFLAGS="";export TOOLCHAIN_ARCH="$AND_TOOLCHAIN_ARCH";export TOOLCHAIN_ARCH2="$AND_TOOLCHAIN_ARCH2"' > ~/pp
+           chmod u+x ~/pp
+           rm -Rf "$_s_"
+           mkdir -p "$_s_"
 
-          - rm -Rf /home/ubuntu/install_dest/ ; mkdir -p /home/ubuntu/install_dest/
-          - mkdir -p $CIRCLE_ARTIFACTS/android/$ARTEFACT_DIR
+           rm -Rf /home/ubuntu/install_dest/ ; mkdir -p /home/ubuntu/install_dest/
+           mkdir -p $CIRCLE_ARTIFACTS/android/$ARTEFACT_DIR
 
            . ~/pp;mkdir -p "$PKG_CONFIG_PATH"
            . ~/pp;/home/ubuntu/android-ndk/build/tools/make_standalone_toolchain.py --arch "$TOOLCHAIN_ARCH" --install-dir "$_toolchain_"/arm-linux-androideabi --api 12 --force   
 
 
         # -- nasm --
-          - cd; mkdir -p nasm_build ; mkdir -p /home/ubuntu/nasm_inst/
-          - cd; cd nasm_build; git clone http://repo.or.cz/nasm.git
-          - cd; cd nasm_build; cd nasm; git checkout nasm-2.13.03
-          - cd; cd nasm_build; cd nasm; ./autogen.sh
-          - cd; cd nasm_build; cd nasm; ./configure --prefix=/home/ubuntu/nasm_inst/
-          - cd; cd nasm_build; cd nasm; make -j4
+           cd; mkdir -p nasm_build ; mkdir -p /home/ubuntu/nasm_inst/
+           cd; cd nasm_build; git clone http://repo.or.cz/nasm.git
+           cd; cd nasm_build; cd nasm; git checkout nasm-2.13.03
+           cd; cd nasm_build; cd nasm; ./autogen.sh
+           cd; cd nasm_build; cd nasm; ./configure --prefix=/home/ubuntu/nasm_inst/
+           cd; cd nasm_build; cd nasm; make -j4
           # seems man pages are not always built. but who needs those
-          - cd; cd nasm_build; cd nasm; touch nasm.1
-          - cd; cd nasm_build; cd nasm; touch ndisasm.1
-          - cd; cd nasm_build; cd nasm; make install
-          - ls -alR /home/ubuntu/nasm_inst/ ; exit 0
-          - export PATH=/home/ubuntu/nasm_inst/bin:$PATH
-          - type -a nasm
-          - nasm --version
+           cd; cd nasm_build; cd nasm; touch nasm.1
+           cd; cd nasm_build; cd nasm; touch ndisasm.1
+           cd; cd nasm_build; cd nasm; make install
+           ls -alR /home/ubuntu/nasm_inst/ ; exit 0
+           export PATH=/home/ubuntu/nasm_inst/bin:$PATH
+           type -a nasm
+           nasm --version
         # -- nasm --
 
 
@@ -317,9 +317,9 @@ jobs:
            . ~/pp;cd ~/build/;make -j4
            . ~/pp;cd ~/build/;make install
            . ~/pp;cd ~/build/;make clean
-          - rm -Rf /home/ubuntu/install_dest/ ; mkdir -p /home/ubuntu/install_dest/
+           rm -Rf /home/ubuntu/install_dest/ ; mkdir -p /home/ubuntu/install_dest/
            . ~/pp;cd ~/build/;make DESTDIR=/home/ubuntu/install_dest/ install
-          - cd /home/ubuntu/install_dest/ ; cd home/ubuntu/c-toxcore/toolchains/arm-linux-androideabi/sysroot/ ; zip -r $CIRCLE_ARTIFACTS/android/libvpx.zip *
+           cd /home/ubuntu/install_dest/ ; cd home/ubuntu/c-toxcore/toolchains/arm-linux-androideabi/sysroot/ ; zip -r $CIRCLE_ARTIFACTS/android/libvpx.zip *
 
 
            . ~/pp;cd $_s_;git clone --depth=1 --branch=v1.3-rc https://github.com/xiph/opus.git
@@ -330,9 +330,9 @@ jobs:
            . ~/pp;cd ~/build/;make -j4
            . ~/pp;cd ~/build/;make install
            . ~/pp;cd ~/build/;make clean
-          - rm -Rf /home/ubuntu/install_dest/ ; mkdir -p /home/ubuntu/install_dest/
+           rm -Rf /home/ubuntu/install_dest/ ; mkdir -p /home/ubuntu/install_dest/
            . ~/pp;cd ~/build/;make DESTDIR=/home/ubuntu/install_dest/ install
-          - cd /home/ubuntu/install_dest/ ; cd home/ubuntu/c-toxcore/toolchains/arm-linux-androideabi/sysroot/ ; zip -r $CIRCLE_ARTIFACTS/android/opus.zip *
+           cd /home/ubuntu/install_dest/ ; cd home/ubuntu/c-toxcore/toolchains/arm-linux-androideabi/sysroot/ ; zip -r $CIRCLE_ARTIFACTS/android/opus.zip *
 
 
            . ~/pp;cd $_s_;git clone --depth=1 --branch=1.0.13 https://github.com/jedisct1/libsodium.git
@@ -343,14 +343,14 @@ jobs:
            . ~/pp;cd ~/build/;make -j4
            . ~/pp;cd ~/build/;make install
            . ~/pp;cd ~/build/;make clean
-          - rm -Rf /home/ubuntu/install_dest/ ; mkdir -p /home/ubuntu/install_dest/
+           rm -Rf /home/ubuntu/install_dest/ ; mkdir -p /home/ubuntu/install_dest/
            . ~/pp;cd ~/build/;make DESTDIR=/home/ubuntu/install_dest/ install
-          - cd /home/ubuntu/install_dest/ ; cd home/ubuntu/c-toxcore/toolchains/arm-linux-androideabi/sysroot/ ; zip -r $CIRCLE_ARTIFACTS/android/libsodium.zip *
+           cd /home/ubuntu/install_dest/ ; cd home/ubuntu/c-toxcore/toolchains/arm-linux-androideabi/sysroot/ ; zip -r $CIRCLE_ARTIFACTS/android/libsodium.zip *
 
 
           # --- get wanted c-toxcore version ---
           # ---- git does not clone into existing dir. why? --> so use workaround here ---
-          - cd ~/ ; git clone "$AND_CTOXCORE_URL" ~/tmp111
+           cd ~/ ; git clone "$AND_CTOXCORE_URL" ~/tmp111
            cd ~/ ; ls -al c-toxcore/
            cd ~/ ; mv -v ~/tmp111/.??* c-toxcore/
            cd ~/ ; mv -v ~/tmp111/* c-toxcore/
@@ -384,7 +384,7 @@ jobs:
            . ~/pp;cd ~/build/;make DESTDIR=/home/ubuntu/install_dest/ install
            cd /home/ubuntu/install_dest/ ; cd home/ubuntu/c-toxcore/toolchains/arm-linux-androideabi/sysroot/ ; zip -r $CIRCLE_ARTIFACTS/android/c-toxcore.zip *
 
-          - find / -name 'cpu-features*' 2>/dev/null ; exit 0
+           find / -name 'cpu-features*' 2>/dev/null ; exit 0
            . ~/pp;cd jni-c-toxcore/; find .. -name 'cpu-features*' 2>/dev/null ; exit 0
 
           # --- filter_audio ---
