@@ -10,7 +10,7 @@ jobs:
     working_directory: ~
     docker:
       - image: ubuntu
-      - image: circleci/openjdk:8-jdk-browsers # ...with this image as the primary container; this is where all `steps` will run
+      #- image: circleci/openjdk:8-jdk-browsers # ...with this image as the primary container; this is where all `steps` will run
     environment:
       MAKEFLAGS: "j4"
   # --- Android build ---
