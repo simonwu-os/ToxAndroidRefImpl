@@ -33,10 +33,11 @@ machine:
 # --- Android build ---
 
     # c-toxcore version
-    AND_CTOXCORE_VERSION: "zoff99/toxcore_v0.2.3__toxav_h264_002"
+    AND_CTOXCORE_VERSION: "v0.2.9"
+    #AND_CTOXCORE_VERSION: "zoff99/toxcore_v0.2.3__toxav_h264_002"
     # c-toxcore repo url
-    # AND_CTOXCORE_URL: "https://github.com/TokTok/c-toxcore"
-    AND_CTOXCORE_URL: "https://github.com/zoff99/c-toxcore_team"
+    AND_CTOXCORE_URL: "https://github.com/TokTok/c-toxcore"
+    # AND_CTOXCORE_URL: "https://github.com/zoff99/c-toxcore_team"
 
     _SDK_: /usr/local/android-sdk-linux/
     _JAVA_OPTIONS: "-Xms512m -Xmx1024m"
