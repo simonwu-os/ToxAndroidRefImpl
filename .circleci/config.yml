@@ -77,7 +77,7 @@ jobs:
       - checkout
       - run: echo 'export PATH=~/g/gradle-custom/bin:/home/ubuntu/nasm_inst/bin:$PATH' >> $BASH_ENV 
       - run:
-        name: dependent_pre
+        name: dependentpre
         command: |
            sudo apt-get update
            sudo apt-get install clang
@@ -164,7 +164,7 @@ jobs:
            if [ "$GRADLE_CUSTOM_VERSION""x" == "1x" ]; then cd ~/g ; mv -v ./gradle-"$GRADLE_CUSTOM_VNUM" ./gradle-custom ; fi
            gradle -v # display gradle version
       - run:
-        name: compile_pre
+        name: compilepre
         command: |
            mksdcard -l e 180M sdcard.img
            echo 'mtools_skip_check=1' > ~/.mtoolsrc
