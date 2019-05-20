@@ -79,90 +79,90 @@ jobs:
       - run:
         name: dependentpre
         command: |
-           sudo apt-get update
-           sudo apt-get install clang
-           sudo apt-get install build-essential libtool autotools-dev automake checkinstall check yasm
-           sudo apt-get install pkg-config
-           sudo apt-get install astyle ; exit 0
-           # ------------ network_test requires that "localhost" resolves to ::1 ------------
-           sudo bash -c "echo '::1             localhost ipv6-localhost ipv6-loopback' >> /etc/hosts" # ipv6 localhost entry
-           # ------------ network_test requires that "localhost" resolves to ::1 ------------
-           java -version ; exit 0
-           gcc --version ; exit 0
-           clang --version ; exit 0
-           astyle --version ; exit 0
-           ### ----- check code style ------
-           cd .. ; cp -av ToxAndroidRefImpl ./astyle_check/
-           cd ../astyle_check/ ; ls -al ./astyle/astylerc
-           cd ../astyle_check/ ;
-            SOURCES=`find android-refimpl-app/app/src/main/java/com/zoffcc/applications/trifa -name '*.java'|sort`;
-            astyle -n --options=./astyle/astylerc jni-c-toxcore/jni-c-toxcore.c $SOURCES ; exit 0
-           cd ../astyle_check/ ; git --no-pager diff
-           cd ../astyle_check/ ; git diff | cat > $CIRCLE_ARTIFACTS/astyle_check.patch 2>&1
-           ### ----- check code style ------
-           mkdir -p /home/ubuntu/c-toxcore # workaround :-)
-           #- find / -name sdkmanager
-           sudo apt-get install xdotool > /dev/null 2> /dev/null
-           sudo apt-get install telnet > /dev/null 2> /dev/null
-           sudo apt-get install x11-utils > /dev/null 2> /dev/null
-           sudo apt-get install xvkbd > /dev/null 2> /dev/null
-           sudo apt-get install qrencode > /dev/null 2> /dev/null
-           sudo apt-get install p7zip-full
-           echo y | android update sdk --no-ui --all --filter "tools"
-           android list sdk --all | grep -i tools
-           android list sdk --all --extended
-           echo y | android update sdk --no-ui --all --filter "tools"
-           echo y | android update sdk --no-ui --all --filter "tools"
-           echo y | android update sdk --no-ui --all --filter build-tools-23.0.3
-           echo y | android update sdk --no-ui --all --filter build-tools-24.0.2
-           echo y | android update sdk --no-ui --all --filter build-tools-24.0.3
-           echo y | android update sdk --no-ui --all --filter build-tools-25.0.0
-           echo y | android update sdk --no-ui --all --filter build-tools-25.0.2
-           echo y | android update sdk --no-ui --all --filter build-tools-25.0.3
-           echo y | android update sdk --no-ui --all --filter android-16 ; exit 0
-           echo y | android update sdk --no-ui --all --filter android-21
-           echo y | android update sdk --no-ui --all --filter android-23
-           echo y | android update sdk --no-ui --all --filter android-24
-           echo y | android update sdk --no-ui --all --filter android-25
-           echo y | android update sdk --no-ui --all --filter platform-tools
-           echo y | android update sdk --no-ui --all --filter extra-android-m2repository > /dev/null 2> /dev/null
-           echo y | android update sdk --no-ui --all --filter extra-google-m2repository > /dev/null 2> /dev/null
-           echo y | android update sdk --no-ui --all --filter extra-android-support > /dev/null 2> /dev/null
-           echo y | android update sdk --no-ui --all --filter "tools"
-           echo y | android update sdk --no-ui --all --filter extra-android-support > /dev/null 2> /dev/null
-           echo y | android update sdk --no-ui --all --filter sys-img-armeabi-v7a-android-21
-           echo y | android update sdk --no-ui --all --filter sys-img-armeabi-v7a-android-23 > /dev/null 2> /dev/null
-           echo y | android update sdk --no-ui --all --filter sys-img-armeabi-v7a-addon-google_apis-google-23 > /dev/null 2> /dev/null
-           echo y | android update sdk --no-ui --all --filter addon-google_apis-google-23 > /dev/null 2> /dev/null
-           echo y | android update sdk --no-ui --all --filter "tools"
-           # - echo y | android update sdk --no-ui
-           $ANDROID_HOME/tools/bin/sdkmanager --list --verbose
-           echo y | $ANDROID_HOME/tools/bin/sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.2"
-           echo y | $ANDROID_HOME/tools/bin/sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.2"
-           echo y | $ANDROID_HOME/tools/bin/sdkmanager "build-tools;27.0.3"
-           echo y | $ANDROID_HOME/tools/bin/sdkmanager "platforms;android-27"
-           # -- why is this not just called "cmake" ? --
-           cmake_pkg_name=$($ANDROID_HOME/tools/bin/sdkmanager --list --verbose|grep -i cmake| tail -n 1 | cut -d \| -f 1 |tr -d " ");
-            echo y | $ANDROID_HOME/tools/bin/sdkmanager "$cmake_pkg_name"
-           # -- why is this not just called "cmake" ? --
-           #- echo y | $ANDROID_HOME/tools/bin/sdkmanager --update
+          sudo apt-get update
+          sudo apt-get install clang
+          sudo apt-get install build-essential libtool autotools-dev automake checkinstall check yasm
+          sudo apt-get install pkg-config
+          sudo apt-get install astyle ; exit 0
+          # ------------ network_test requires that "localhost" resolves to ::1 ------------
+          sudo bash -c "echo '::1             localhost ipv6-localhost ipv6-loopback' >> /etc/hosts" # ipv6 localhost entry
+          # ------------ network_test requires that "localhost" resolves to ::1 ------------
+          java -version ; exit 0
+          gcc --version ; exit 0
+          clang --version ; exit 0
+          astyle --version ; exit 0
+          ### ----- check code style ------
+          cd .. ; cp -av ToxAndroidRefImpl ./astyle_check/
+          cd ../astyle_check/ ; ls -al ./astyle/astylerc
+          cd ../astyle_check/ ;
+          SOURCES=`find android-refimpl-app/app/src/main/java/com/zoffcc/applications/trifa -name '*.java'|sort`;
+          astyle -n --options=./astyle/astylerc jni-c-toxcore/jni-c-toxcore.c $SOURCES ; exit 0
+          cd ../astyle_check/ ; git --no-pager diff
+          cd ../astyle_check/ ; git diff | cat > $CIRCLE_ARTIFACTS/astyle_check.patch 2>&1
+          ### ----- check code style ------
+          mkdir -p /home/ubuntu/c-toxcore # workaround :-)
+          #- find / -name sdkmanager
+          sudo apt-get install xdotool > /dev/null 2> /dev/null
+          sudo apt-get install telnet > /dev/null 2> /dev/null
+          sudo apt-get install x11-utils > /dev/null 2> /dev/null
+          sudo apt-get install xvkbd > /dev/null 2> /dev/null
+          sudo apt-get install qrencode > /dev/null 2> /dev/null
+          sudo apt-get install p7zip-full
+          echo y | android update sdk --no-ui --all --filter "tools"
+          android list sdk --all | grep -i tools
+          android list sdk --all --extended
+          echo y | android update sdk --no-ui --all --filter "tools"
+          echo y | android update sdk --no-ui --all --filter "tools"
+          echo y | android update sdk --no-ui --all --filter build-tools-23.0.3
+          echo y | android update sdk --no-ui --all --filter build-tools-24.0.2
+          echo y | android update sdk --no-ui --all --filter build-tools-24.0.3
+          echo y | android update sdk --no-ui --all --filter build-tools-25.0.0
+          echo y | android update sdk --no-ui --all --filter build-tools-25.0.2
+          echo y | android update sdk --no-ui --all --filter build-tools-25.0.3
+          echo y | android update sdk --no-ui --all --filter android-16 ; exit 0
+          echo y | android update sdk --no-ui --all --filter android-21
+          echo y | android update sdk --no-ui --all --filter android-23
+          echo y | android update sdk --no-ui --all --filter android-24
+          echo y | android update sdk --no-ui --all --filter android-25
+          echo y | android update sdk --no-ui --all --filter platform-tools
+          echo y | android update sdk --no-ui --all --filter extra-android-m2repository > /dev/null 2> /dev/null
+          echo y | android update sdk --no-ui --all --filter extra-google-m2repository > /dev/null 2> /dev/null
+          echo y | android update sdk --no-ui --all --filter extra-android-support > /dev/null 2> /dev/null
+          echo y | android update sdk --no-ui --all --filter "tools"
+          echo y | android update sdk --no-ui --all --filter extra-android-support > /dev/null 2> /dev/null
+          echo y | android update sdk --no-ui --all --filter sys-img-armeabi-v7a-android-21
+          echo y | android update sdk --no-ui --all --filter sys-img-armeabi-v7a-android-23 > /dev/null 2> /dev/null
+          echo y | android update sdk --no-ui --all --filter sys-img-armeabi-v7a-addon-google_apis-google-23 > /dev/null 2> /dev/null
+          echo y | android update sdk --no-ui --all --filter addon-google_apis-google-23 > /dev/null 2> /dev/null
+          echo y | android update sdk --no-ui --all --filter "tools"
+          # - echo y | android update sdk --no-ui
+          $ANDROID_HOME/tools/bin/sdkmanager --list --verbose
+          echo y | $ANDROID_HOME/tools/bin/sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.2"
+          echo y | $ANDROID_HOME/tools/bin/sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.2"
+          echo y | $ANDROID_HOME/tools/bin/sdkmanager "build-tools;27.0.3"
+          echo y | $ANDROID_HOME/tools/bin/sdkmanager "platforms;android-27"
+          # -- why is this not just called "cmake" ? --
+          cmake_pkg_name=$($ANDROID_HOME/tools/bin/sdkmanager --list --verbose|grep -i cmake| tail -n 1 | cut -d \| -f 1 |tr -d " ");
+          echo y | $ANDROID_HOME/tools/bin/sdkmanager "$cmake_pkg_name"
+          # -- why is this not just called "cmake" ? --
+          #- echo y | $ANDROID_HOME/tools/bin/sdkmanager --update
 
-           #    echo y | android update sdk --no-ui --all --filter "tool,extra-android-m2repository,extra-android-support,extra-google-google_play_services,extra-google-m2repository"
-           #    echo y | $ANDROID_HOME/tools/bin/sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.2"
+          #    echo y | android update sdk --no-ui --all --filter "tool,extra-android-m2repository,extra-android-support,extra-google-google_play_services,extra-google-m2repository"
+          #    echo y | $ANDROID_HOME/tools/bin/sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.2"
 
-           echo ${ANDROID_HOME} ; exit 0
-           ls -al "${ANDROID_HOME}/licenses" ; exit 0
+          echo ${ANDROID_HOME} ; exit 0
+          ls -al "${ANDROID_HOME}/licenses" ; exit 0
 
-           mkdir -p "${ANDROID_HOME}/licenses" ;
-            echo -e "\n8933bad161af4178b1185d1a37fbf41ea5269c55" > "${ANDROID_HOME}/licenses/android-sdk-license" ;
-            echo -e "\n84831b9409646a918e30573bab4c9c91346d8abd" > "${ANDROID_HOME}/licenses/android-sdk-preview-license" ;
-            echo -e "\nd975f751698a77b662f1254ddbeed3901e976f5a" > "${ANDROID_HOME}/licenses/intel-android-extra-license"
+          mkdir -p "${ANDROID_HOME}/licenses" ;
+          echo -e "\n8933bad161af4178b1185d1a37fbf41ea5269c55" > "${ANDROID_HOME}/licenses/android-sdk-license" ;
+          echo -e "\n84831b9409646a918e30573bab4c9c91346d8abd" > "${ANDROID_HOME}/licenses/android-sdk-preview-license" ;
+          echo -e "\nd975f751698a77b662f1254ddbeed3901e976f5a" > "${ANDROID_HOME}/licenses/intel-android-extra-license"
 
-           gradle -v # display gradle version
-           if [ "$GRADLE_CUSTOM_VERSION""x" == "1x" ]; then cd ~ ; wget 'https://services.gradle.org/distributions/gradle-'"$GRADLE_CUSTOM_VNUM"'-bin.zip' ; fi
-           if [ "$GRADLE_CUSTOM_VERSION""x" == "1x" ]; then mkdir ~/g ; cd ~/g ; unzip ~/gradle-"$GRADLE_CUSTOM_VNUM"-bin.zip ; fi
-           if [ "$GRADLE_CUSTOM_VERSION""x" == "1x" ]; then cd ~/g ; mv -v ./gradle-"$GRADLE_CUSTOM_VNUM" ./gradle-custom ; fi
-           gradle -v # display gradle version
+          gradle -v # display gradle version
+          if [ "$GRADLE_CUSTOM_VERSION""x" == "1x" ]; then cd ~ ; wget 'https://services.gradle.org/distributions/gradle-'"$GRADLE_CUSTOM_VNUM"'-bin.zip' ; fi
+          if [ "$GRADLE_CUSTOM_VERSION""x" == "1x" ]; then mkdir ~/g ; cd ~/g ; unzip ~/gradle-"$GRADLE_CUSTOM_VNUM"-bin.zip ; fi
+          if [ "$GRADLE_CUSTOM_VERSION""x" == "1x" ]; then cd ~/g ; mv -v ./gradle-"$GRADLE_CUSTOM_VNUM" ./gradle-custom ; fi
+          gradle -v # display gradle version
       - run:
         name: compilepre
         command: |
